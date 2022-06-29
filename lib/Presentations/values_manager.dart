@@ -14,7 +14,7 @@ class AppPadding {
   static const double p20 = 20.0;
 }
 
-class Fontsize {
+class Appsize {
   static const double s12 = 12.0;
   static const double s14 = 14.0;
   static const double s16 = 16.0;
