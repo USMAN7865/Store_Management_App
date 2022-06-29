@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   factory MyApp() => instance;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: TestApp(),
     );
   }
