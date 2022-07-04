@@ -1,17 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:store_management_app/app/app.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp._instance();
+  const MyApp({Key? key}) : super(key: key);
 
-  int Age = 20;
-  static final instance = MyApp._instance();
-
-  factory MyApp() => instance;
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(

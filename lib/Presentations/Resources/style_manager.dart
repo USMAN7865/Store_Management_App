@@ -1,7 +1,7 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/cupertino.dart';
-import 'package:store_management_app/Presentations/fonts_manager.dart';
+import 'package:store_management_app/Presentations/Resources/fonts_manager.dart';
 
 TextStyle _getTextStyle(
     double fontsize, FontWeight fontWeight, Color color, String fontFamily) {
@@ -15,7 +15,7 @@ TextStyle _getTextStyle(
 
 //regular style
 
-TextStyle _getregulartextStyle(
+TextStyle getregulartextStyle(
     {double fontSize = Fontsize.s12,
     FontWeight? fontWeight,
     required Color? color,
@@ -26,7 +26,7 @@ TextStyle _getregulartextStyle(
 
 //light textStyle
 
-TextStyle _getlighttextStyle(
+TextStyle getlighttextStyle(
     {double fontSize = Fontsize.s12,
     FontWeight? fontWeight,
     required Color? color,
@@ -37,7 +37,7 @@ TextStyle _getlighttextStyle(
 
 //Medium TextStyle
 
-TextStyle _getmediumtextStyle(
+TextStyle getmediumtextStyle(
     {double fontSize = Fontsize.s12,
     FontWeight? fontWeight,
     required Color? color,
@@ -48,21 +48,21 @@ TextStyle _getmediumtextStyle(
 
 //Semi Bold TextStyle
 
-TextStyle _getsemiboldtextStyle(
+TextStyle getsemiboldtextStyle(
     {double fontSize = Fontsize.s12,
     FontWeight? fontWeight,
     required Color? color,
-    String? Fontfamily}) {
+    String? fontfamily}) {
   return _getTextStyle(Fontsize.s12, FontweightManager.semiBold, color!,
       FontConstraints.fontfamily);
 }
 
 //Bold Text Style
-TextStyle _getboldtextStyle(
+TextStyle getboldtextStyle(
     {double fontSize = Fontsize.s12,
     FontWeight? fontWeight,
     required Color? color,
-    String? Fontfamily}) {
+    String? fFontfamily}) {
   return _getTextStyle(
       Fontsize.s12, FontweightManager.bold, color!, FontConstraints.fontfamily);
 }

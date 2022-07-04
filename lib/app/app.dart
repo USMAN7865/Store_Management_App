@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:store_management_app/main.dart';
+import 'package:store_management_app/Presentations/Resources/route_manager.dart';
+import 'package:store_management_app/Presentations/Resources/theme_manager.dart';
 
 class TestApp extends StatefulWidget {
   const TestApp({Key? key}) : super(key: key);
@@ -9,14 +10,12 @@ class TestApp extends StatefulWidget {
 }
 
 class _TestAppState extends State<TestApp> {
-  void UpdataAge() {
-    MyApp.instance.Age;
-    print(MyApp.instance.Age);
-  }
-
   @override
   Widget build(BuildContext context) {
-    UpdataAge();
-    return Container();
+    return MaterialApp(
+      onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: RouteManager.splashRoute,
+      theme: getApplicationtheme(),
+    );
   }
 }
