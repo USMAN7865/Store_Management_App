@@ -24,7 +24,7 @@ class RouteGenerator {
       case RouteManager.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case RouteManager.onboardingRoute:
-        return MaterialPageRoute(builder: (_) => OnboardingScreen());
+        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case RouteManager.loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RouteManager.signupRoute:

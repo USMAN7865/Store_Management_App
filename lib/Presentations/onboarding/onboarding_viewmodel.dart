@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields, override_on_non_overriding_member
 
 import 'dart:async';
 
@@ -24,7 +24,6 @@ class OnboardingViewModel extends BaseViewModel
     _posttoUpdate();
   }
 
-  @override
   int goNext() {
     int nextindex = pagenumber++;
     if (nextindex >=
@@ -36,7 +35,7 @@ class OnboardingViewModel extends BaseViewModel
   }
 
   //User click on Right Arrow Button
-  @override
+
   int goPrevious() {
     int previousindex = pagenumber--;
     if (previousindex == -1) {
@@ -46,7 +45,7 @@ class OnboardingViewModel extends BaseViewModel
   }
 
   //User Click on Left Arrow Button
-  @override
+
   void onPageChanged(int Index) {
     pagenumber = Index;
     _posttoUpdate();

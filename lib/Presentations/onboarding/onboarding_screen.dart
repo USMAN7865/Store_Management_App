@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, non_constant_identifier_names
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -117,7 +117,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _pageController.animateToPage(_onboardingViewModel.goNext(),
+                  _pageController.animateToPage(
+                      _onboardingViewModel.goPrevious(),
                       duration: const Duration(
                         milliseconds: Durationconst.d300,
                       ),
@@ -144,8 +145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _pageController.animateToPage(
-                      _onboardingViewModel.goPrevious(),
+                  _pageController.animateToPage(_onboardingViewModel.goNext(),
                       duration: const Duration(
                         milliseconds: Durationconst.d300,
                       ),
