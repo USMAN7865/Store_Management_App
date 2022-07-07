@@ -1,5 +1,13 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:store_management_app/Presentations/Resources/assets_manager.dart';
 import 'package:store_management_app/Presentations/Resources/color_manager.dart';
+import 'package:store_management_app/Presentations/Resources/route_manager.dart';
+import 'package:store_management_app/Presentations/Resources/string_manager.dart';
+import 'package:store_management_app/Presentations/Resources/values_manager.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -9,13 +17,205 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  late final List<SliderObject> _list = _Onboardingdata();
+  PageController _pageController = PageController(initialPage: 0);
+  int pagenumber = 0;
+
+  List<SliderObject> _Onboardingdata() => [
+        SliderObject(
+            imagepath: ImageManager.onboardingLogo1,
+            title: AppString.onBoardingtitle1,
+            subtitle: AppString.onBoardingsubtitle1),
+        SliderObject(
+            imagepath: ImageManager.onboardingLogo2,
+            title: AppString.onBoardingtitle2,
+            subtitle: AppString.onBoardingsubtitle2),
+        SliderObject(
+            imagepath: ImageManager.onboardingLogo3,
+            title: AppString.onBoardingtitle3,
+            subtitle: AppString.onBoardingsubtitle3),
+        SliderObject(
+            imagepath: ImageManager.onboardingLogo4,
+            title: AppString.onBoardingtitle4,
+            subtitle: AppString.onBoardingsubtitle4),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.primarycolor,
-      body: const Center(
-        child: Text("Onboarding Screen"),
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
+        backgroundColor: ColorManager.white,
+        elevation: Appsize.s0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.white,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark),
+      ),
+      body: PageView.builder(
+          controller: _pageController,
+          itemCount: _list.length,
+          onPageChanged: (value) {
+            setState(() {
+              pagenumber = value;
+            });
+          },
+          itemBuilder: (context, index) {
+            return Column(
+              children: [OnBoardingPage(sliderObject: _list[index])],
+            );
+          }),
+      bottomSheet: Container(
+        color: ColorManager.white,
+        height: Appsize.s100,
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.pushReplacementNamed(
+                        context, RouteManager.homeRoute);
+                  });
+                },
+                child: Text(
+                  AppString.skip,
+                  style: Theme.of(context).textTheme.subtitle2,
+                  textAlign: TextAlign.end,
+                ),
+              ),
+            ),
+            SliderBottomButton(),
+          ],
+        ),
       ),
     );
   }
+
+  Widget getpropercircle(int index) {
+    if (index == pagenumber) {
+      return SvgPicture.asset(ImageManager.hollowcircleicon);
+    } else {
+      return SvgPicture.asset(ImageManager.solidcircleicon);
+    }
+  }
+
+  Widget SliderBottomButton() {
+    return Container(
+      color: ColorManager.primarycolor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p16),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _pageController.animateToPage(_getpreviousindex(),
+                      duration: const Duration(
+                        milliseconds: Durationconst.d300,
+                      ),
+                      curve: Curves.bounceInOut);
+                });
+              },
+              child: SizedBox(
+                height: Appsize.s20,
+                width: Appsize.s20,
+                child: SvgPicture.asset(ImageManager.leftarrow), // left arrow
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              for (int i = 0; i < _list.length; i++)
+                Padding(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    child: getpropercircle(i)),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p16),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _pageController.animateToPage(_getnextindex(),
+                      duration: const Duration(
+                        milliseconds: Durationconst.d300,
+                      ),
+                      curve: Curves.bounceInOut);
+                });
+              },
+              child: SizedBox(
+                height: Appsize.s20,
+                width: Appsize.s20,
+                child: SvgPicture.asset(ImageManager.rightarrow),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  int _getpreviousindex() {
+    int previousindex = pagenumber--;
+    if (previousindex == -1) {
+      pagenumber = _list.length - 1;
+    }
+    return pagenumber;
+  }
+
+  int _getnextindex() {
+    int nextindex = pagenumber++;
+    if (nextindex >=
+        _list.length) //Infinite loop to go the first item in slider list
+    {
+      pagenumber = 0;
+    }
+    return pagenumber;
+    ;
+  }
+}
+
+class OnBoardingPage extends StatelessWidget {
+  SliderObject sliderObject;
+  OnBoardingPage({Key? key, required this.sliderObject}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: Appsize.s16,
+        ),
+        Text(
+          sliderObject.title,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(Appsize.s16),
+          child: Text(
+            sliderObject.subtitle,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+        const SizedBox(
+          height: Appsize.s80,
+        ),
+        SvgPicture.asset(sliderObject.imagepath),
+      ],
+    );
+  }
+}
+
+class SliderObject {
+  String imagepath;
+  String title;
+  String subtitle;
+  SliderObject(
+      {required this.imagepath, required this.subtitle, required this.title});
 }
