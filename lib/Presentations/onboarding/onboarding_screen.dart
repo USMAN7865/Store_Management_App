@@ -117,8 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _pageController.animateToPage(
-                      _onboardingViewModel.goPrevious(),
+                  _pageController.animateToPage(_onboardingViewModel.goNext(),
                       duration: const Duration(
                         milliseconds: Durationconst.d300,
                       ),
@@ -145,7 +144,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _pageController.animateToPage(_onboardingViewModel.goNext(),
+                  _pageController.animateToPage(
+                      _onboardingViewModel.goPrevious(),
                       duration: const Duration(
                         milliseconds: Durationconst.d300,
                       ),
